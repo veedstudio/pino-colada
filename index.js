@@ -61,6 +61,29 @@ function PinoColada() {
   }
 
   function output(obj) {
+    var {
+      level,
+      name,
+      service,
+      ns,
+      res,
+      req,
+      statusCode,
+      httpRequest,
+      reqId,
+      responseTime,
+      elapsed,
+      method,
+      contentLength,
+      url,
+      message,
+      time,
+      pid,
+      hostname,
+      severity,
+      err,
+      ...remainder
+    } = obj;
     var output = [];
 
     if (!obj.level) obj.level = "userlvl";
@@ -73,23 +96,21 @@ function PinoColada() {
     output.push(formatName(obj.name));
     output.push(formatMessage(obj));
 
-    var req = obj.req;
-    var res = obj.res;
-    var statusCode = res ? res.statusCode : obj.statusCode;
-    var responseTime = obj.responseTime || obj.elapsed;
-    var method = req ? req.method : obj.method;
-    var contentLength = obj.contentLength;
-    var url = req ? req.url : obj.url;
+    statusCode = res ? res.statusCode : obj.statusCode;
+    responseTime = obj.responseTime || obj.elapsed;
+    method = req ? req.method : obj.method;
+    contentLength = obj.contentLength;
+    url = req ? req.url : obj.url;
     var stack =
       obj.level === "fatal" || obj.level === "error"
-        ? obj.stack || (obj.err && obj.err.stack)
+        ? obj.stack || (err && err.stack)
         : null;
     // Output err if it has more keys than 'stack'
-    var err =
+    err =
       (obj.level === "fatal" || obj.level === "error") &&
-      obj.err &&
-      Object.keys(obj.err).find((key) => key !== "stack")
-        ? obj.err
+      err &&
+      Object.keys(err).find((key) => key !== "stack")
+        ? err
         : null;
 
     if (method != null) {
@@ -101,8 +122,14 @@ function PinoColada() {
     if (responseTime != null) output.push(formatLoadTime(responseTime));
     if (stack != null) output.push(formatStack(stack));
     if (err != null) output.push(formatErrorProp(err));
+    if (remainder != null) output.push(formatRemainder(remainder));
 
     return output.filter(noEmpty).join(" ");
+  }
+
+  function formatRemainder(remainder) {
+    if (Object.keys(remainder).length === 0) return "";
+    return JSON.stringify(remainder, null, 2).replaceAll("\n", "");
   }
 
   function formatDate(instant) {
