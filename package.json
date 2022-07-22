@@ -29,10 +29,10 @@
     "standard": "^14.0.0"
   },
   "dependencies": {
-    "chalk": "^3.0.0",
-    "fast-json-parse": "^1.0.2",
-    "prettier-bytes": "^1.0.3",
-    "pretty-ms": "^5.0.0",
-    "split2": "^3.0.0"
+    "chalk": "^5.0.1",
+    "fast-json-parse": "^1.0.3",
+    "prettier-bytes": "^1.0.4",
+    "pretty-ms": "^8.0.0",
+    "split2": "^4.1.0"
   }
 }
