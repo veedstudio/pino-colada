@@ -1,6 +1,6 @@
 import prettyBytes from "prettier-bytes";
-import jsonParse  from "fast-json-parse";
-import prettyMs  from "pretty-ms";
+import jsonParse from "fast-json-parse";
+import prettyMs from "pretty-ms";
 import chalk from "chalk";
 var nl = "\n";
 
@@ -24,8 +24,6 @@ function isObject(input) {
 function isPinoLog(log) {
   return log && Object.prototype.hasOwnProperty.call(log, "level");
 }
-
-module.exports = PinoColada;
 
 function PinoColada() {
   return parse;
@@ -211,3 +209,5 @@ function PinoColada() {
     return !!val;
   }
 }
+
+export default PinoColada;

@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 import split from "split2";
-import pinoColada from "./index";
+import pinoColada from "./index.js";
 var input = process.stdin;
 var output = process.stdout;
 
