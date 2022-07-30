@@ -1,7 +1,7 @@
-var prettyBytes = require("prettier-bytes");
-var jsonParse = require("fast-json-parse");
-var prettyMs = require("pretty-ms");
-var chalk = require("chalk");
+import prettyBytes from "prettier-bytes";
+import jsonParse  from "fast-json-parse";
+import prettyMs  from "pretty-ms";
+import chalk from "chalk";
 var nl = "\n";
 
 var emojiLog = {

@@ -1,29 +1,27 @@
-'use strict'
+import Hapi from "@hapi/hapi";
 
-const Hapi = require('@hapi/hapi')
-
-async function run () {
+async function run() {
   // Create a server with a host and port
   const server = Hapi.Server({
     port: 3000,
-    host: 'localhost'
-  })
+    host: "localhost",
+  });
 
-  await server.register(require('hapi-pino'))
+  await server.register(require("hapi-pino"));
 
   // Add the route
   server.route({
-    method: 'GET',
-    path: '/',
+    method: "GET",
+    path: "/",
     handler: function (request, reply) {
-      return 'hello world'
-    }
-  })
+      return "hello world";
+    },
+  });
 
-  await server.start()
+  await server.start();
 }
 
 run().catch((err) => {
-  console.error(err)
-  process.exit(1)
-})
+  console.error(err);
+  process.exit(1);
+});

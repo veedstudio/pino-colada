@@ -1,8 +1,9 @@
 # pino-colada 🍹
+
 [![npm version][1]][2] [![build status][3]][4]
 [![downloads][5]][6] [![js-standard-style][7]][8]
 
-A cute [ndjson](http://ndjson.org) formatter for [pino](https://github.com/pinojs/pino). 
+A cute [ndjson](http://ndjson.org) formatter for [pino](https://github.com/pinojs/pino).
 
 <img src="./pino-colada.png" alt="An example of pino-colada terminal output. The output shows timestamps, messages, stack traces, all colourised for ease of reading. The exact output is as follows:
 15:31:42 ✨ http <-- GET xxx /
@@ -30,7 +31,13 @@ Error: helloooo server error
 15:33:50 ✨ http <-- POST xxx /user
 15:33:50 ✨ http --> POST 200 /user 12B 1ms" />
 
-# Usage
+## Fork changes
+
+- Prints extra passed params that aren't processed into pretty output
+- ESM module
+
+## Usage
+
 Pipe a server that uses pino into pino-colada for logging.
 
 ```bash
@@ -38,6 +45,7 @@ node server.js | pino-colada
 ```
 
 ## pino-colada
+
 After parsing input from `server.js`, pino-colada returns a stream and pipes it
 over to `process.stdout`. It will output a timestamp, a log level in a form of
 an emoji, and a message.
@@ -45,7 +53,7 @@ an emoji, and a message.
 ### Usage as [pino prettifier](http://getpino.io/#/docs/pretty?id=api-example)
 
 ```javascript
-const pino = require('pino')
+const pino  from 'pino')
 const logger = pino({
   prettyPrint: {},
   prettifier: require('pino-colada')
@@ -62,7 +70,7 @@ print out the error message and the stack trace. But not all errors will contain
 the appropriate keys (such as an error return from a promise).
 
 Below is an example log message to demonstrate how pino-colada processes the
-data: 
+data:
 
 ```bash
 10:01:31 🚨 MyNamespace MyFunction Encountered an internal server error GET 500 /test 230B 45ms
@@ -78,16 +86,19 @@ Error: Mock Error message triggered.
 ```
 
 Given the following pino log,
+
 ```bash
 {"level":30,"time":1639403408545,"pid":37661,"hostname":"Irinas-MacBook-Pro.local","name":"http","message":"response","method":"GET","url":"/error","statusCode":500,"elapsed":3,"contentLength":0,"v":1}
 ```
 
 `pino-colada` produces the following output:
+
 ```
 14:46:04 ✨ http --> GET 500 /error 0B 3ms
 ```
 
 The output corresponds to pino's ndjson. Here are is an annotated explanation of how `pino-colada` formats the logs:
+
 ```
 14:46:04 ✨ http --> GET 500 /error 0B 3ms
          ┬  ─┬─  ─┬─ ─┬─ ─┬─ ───┬── ┬  ─┬─
@@ -95,7 +106,7 @@ The output corresponds to pino's ndjson. Here are is an annotated explanation of
 ────┬─── |   |    |   |   |     |   |   |
     ╰── "time"    |   |   |     |   |   |
          |   |    |   |   |     |   |   |
-         ╰── "level"  |   |     |   |   | 
+         ╰── "level"  |   |     |   |   |
              |    |   |   |     |   |   |
              ╰── "name"   |     |   |   |
                   |   |   |     |   |   |
@@ -112,22 +123,25 @@ The output corresponds to pino's ndjson. Here are is an annotated explanation of
 ```
 
 A few notes on the formatting:
+
 - We use these emojis to represent the `"level"`:
-  * level 10, trace: '🔍'
-  * level 20, debug: '🐛',
-  * level 30, info: '✨',
-  * level 40, warn: '⚠️',
-  * level 50, error: '🚨',
-  * level 60, fatal: '💀'.
+  - level 10, trace: '🔍'
+  - level 20, debug: '🐛',
+  - level 30, info: '✨',
+  - level 40, warn: '⚠️',
+  - level 50, error: '🚨',
+  - level 60, fatal: '💀'.
 - If the `"message"` value is `request` or `response`, we convert it to `<--` and `-->` respectively.
 - If `"stack"` property is present, `pino-colada` will print the stack trace following the formatted error log.
 
 # Install
+
 ```bash
 npm install pino-colada
 ```
 
 # Related content
+
 - [pino](https://github.com/pinojs/pino)
 - [merry](https://github.com/shipharbor/merry)
 - [garnish](https://github.com/mattdesl/garnish)
@@ -136,6 +150,7 @@ npm install pino-colada
 - [hapi-pino](https://github.com/pinojs/hapi-pino)
 
 ## License
+
 [MIT](https://tldrlegal.com/license/mit-license)
 
 [1]: https://img.shields.io/npm/v/pino-colada.svg?style=flat-square

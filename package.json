@@ -14,7 +14,11 @@
   "bin": {
     "pino-colada": "./bin.js"
   },
-  "main": "index.js",
+  "exports": "./index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=14.16"
+  },
   "scripts": {
     "start": "node example.js | ./bin.js",
     "test": "standard"

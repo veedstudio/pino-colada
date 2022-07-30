@@ -1,19 +1,20 @@
-var pino = require('pino-http')()
-var http = require('http')
+import createPino from "pino-http";
+import http from "http";
 
+const pino = createPino();
 var server = http.createServer(function (req, res) {
-  pino(req, res)
+  pino(req, res);
 
-  if (req.url === '/') {
-    res.end('hello world')
-  } else if (req.url === '/user' && req.method === 'POST') {
-    res.end('new user ✨')
-  } else if (req.url === '/content' && req.method === 'PUT') {
-    res.end('ou weee here is some updated info')
-  } else if (req.url === '/content' && req.method === 'PUT') {
+  if (req.url === "/") {
+    res.end("hello world");
+  } else if (req.url === "/user" && req.method === "POST") {
+    res.end("new user ✨");
+  } else if (req.url === "/content" && req.method === "PUT") {
+    res.end("ou weee here is some updated info");
+  } else if (req.url === "/content" && req.method === "PUT") {
   } else {
-    res.statusCode = 404
-    res.end()
+    res.statusCode = 404;
+    res.end();
   }
-})
-server.listen(8080)
+});
+server.listen(8080);
