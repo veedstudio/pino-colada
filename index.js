@@ -113,7 +113,7 @@ function PinoColada() {
         : null;
 
     if (!contentLength && responseBody) {
-      contentLength = responseBody.length;
+      contentLength = formatRemainder(responseBody).length;
     }
 
     if (method != null) {
@@ -198,8 +198,9 @@ function PinoColada() {
   }
 
   function formatMessageName(message) {
-    if (message === "request") return "<--";
-    if (message === "response") return "-->";
+    if (message === "request" || message === "incoming request") return "<--";
+    if (message === "response" || message === "request completed") return "-->";
+    if (message === "response body") return "|-|";
     return message;
   }
 
