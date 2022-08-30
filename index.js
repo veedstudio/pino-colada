@@ -73,6 +73,7 @@ function PinoColada() {
       elapsed,
       method,
       contentLength,
+      responseBody,
       url,
       message,
       time,
@@ -111,12 +112,17 @@ function PinoColada() {
         ? err
         : null;
 
+    if (!contentLength && responseBody) {
+      contentLength = responseBody.length;
+    }
+
     if (method != null) {
       output.push(formatMethod(method));
       output.push(formatStatusCode(statusCode));
     }
     if (url != null) output.push(formatUrl(url));
     if (contentLength != null) output.push(formatBundleSize(contentLength));
+
     if (responseTime != null) output.push(formatLoadTime(responseTime));
     if (stack != null) output.push(formatStack(stack));
     if (err != null) output.push(formatErrorProp(err));
